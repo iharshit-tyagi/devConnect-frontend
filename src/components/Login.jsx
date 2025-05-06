@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import axios from 'axios';
+
 import { useNavigate } from "react-router-dom";
+import { UseLogin } from "../hooks/useLogin";
 const Login = () => {
 
-const[password,setPassword]=useState('');
-const[username,setUsername]=useState('');
-const [errMessage,setErrorMessage]=useState('');
+const[password,setPassword]=useState('this is not');
+const[username,setUsername]=useState('htyagiw');
+// const [errMessage,setErrorMessage]=useState('');
 const navigate=useNavigate();
+const {handleLogin,errMessage}= UseLogin();
+
 const handleUsernameChange=(e)=>{  
   setUsername(e?.target?.value);
 }
@@ -15,17 +18,7 @@ setPassword(e?.target?.value);
 }
 
 const hanldeLoginClick=async ()=>{
-  try{
-    const res= await axios.post('http://localhost:3000/api/v1/user/signin',{
-   username,password
-    },  { headers: { 'Content-Type': 'application/json' },withCredentials:true });
-
-    navigate('/feed')
-    // setErrorMessage('');
-  }catch(err){
-    console.log(err);
-    setErrorMessage(err?.response?.data?.message)
-  }
+ await handleLogin(username,password);
 }
 
 
