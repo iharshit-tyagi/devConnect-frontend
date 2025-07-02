@@ -1,10 +1,15 @@
+import { useSelector } from "react-redux";
 const NavBar = () => {
+  const user = useSelector((state) => state.user);
+  console.log(user);
+
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Dev Connect</a>
       </div>
       <div className="flex-none gap-2">
+        <p>Welcome- User </p>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
