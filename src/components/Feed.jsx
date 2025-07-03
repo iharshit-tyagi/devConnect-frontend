@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../utils/userListSlice";
 const Feed = () => {
   const [userList, setUserList] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     getUserList();
   }, []);
@@ -12,7 +14,7 @@ const Feed = () => {
         "http://localhost:3000/api/v1/user/userlist",
         { withCredentials: true }
       );
-
+      dispatch(addUsers(res?.data?.response));
       setUserList(res?.data?.response);
     } catch (err) {
       console.log(err);
