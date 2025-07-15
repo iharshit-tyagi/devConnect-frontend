@@ -10,6 +10,7 @@ const Feed = () => {
   const { getUserList } = useUserList();
   const navigate = useNavigate();
   const userList = useSelector((state) => state.userList);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     getUserList();
@@ -17,6 +18,7 @@ const Feed = () => {
   }, []);
   const getSignedInUser = async () => {
     try {
+      if (user) return;
       const res = await axios.get("http://localhost:3000/api/v1/user/view", {
         withCredentials: true,
       });
@@ -26,7 +28,6 @@ const Feed = () => {
       } else {
         navigate("/");
       }
-      // setUserList(res?.data?.response);
     } catch (err) {
       console.log(err);
       navigate("/");
