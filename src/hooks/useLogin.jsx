@@ -11,7 +11,7 @@ export const UseLogin = () => {
   const handleLogin = async (username, password) => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/signin/",
+        "http://localhost:3000/api/v1/auth/signin",
         {
           username,
           password,
@@ -21,7 +21,9 @@ export const UseLogin = () => {
           withCredentials: true,
         }
       );
-      // console.log(res?.data?.response);
+      console.log("After axios call");
+
+      console.log(res?.data?.response);
 
       dispatch(addUser(res?.data?.response));
       navigate("/feed");

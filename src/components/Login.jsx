@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { UseLogin } from "../hooks/useLogin";
 const Login = () => {
-  const [password, setPassword] = useState("this is not");
-  const [username, setUsername] = useState("htyagiw");
+  const [password, setPassword] = useState("Abhi");
+  const [username, setUsername] = useState("Abhi");
   // const [errMessage,setErrorMessage]=useState('');
   const { handleLogin, errMessage } = UseLogin();
 

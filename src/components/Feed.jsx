@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUsers } from "../utils/userListSlice";
+import { useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useUserList } from "../hooks/useUserList";
+import { useNavigate } from "react-router-dom";
 const Feed = () => {
-  const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
+  const { getUserList } = useUserList();
+  const navigate = useNavigate();
+  const userList = useSelector((state) => state.userList);
+
   useEffect(() => {
     getUserList();
     getSignedInUser();
@@ -15,28 +20,28 @@ const Feed = () => {
       const res = await axios.get("http://localhost:3000/api/v1/user/view", {
         withCredentials: true,
       });
-      dispatch(addUser(res?.data?.response));
+
+      if (res.status == 200) {
+        dispatch(addUser(res?.data));
+      } else {
+        navigate("/");
+      }
       // setUserList(res?.data?.response);
     } catch (err) {
       console.log(err);
+      navigate("/");
     }
   };
-  const getUserList = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:3000/api/v1/user/userlist",
-        { withCredentials: true }
-      );
-      dispatch(addUsers(res?.data?.response));
-      setUserList(res?.data?.response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  return userList.length === 0 ? (
+  return !userList ? (
     <div> No users</div>
   ) : (
-    <div>Users are there</div>
+    <div>
+      <div>
+        {userList?.map((ele) => {
+          return <p key={ele?.id}>{ele.firstName}</p>;
+        })}
+      </div>
+    </div>
   );
 };
 

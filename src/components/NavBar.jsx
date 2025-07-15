@@ -1,7 +1,16 @@
 import { useSelector } from "react-redux";
+import axios from "axios";
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/api/v1/auth/logout", {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
@@ -36,7 +45,7 @@ const NavBar = () => {
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <a onClick={handleLogout}>Logout</a>
             </li>
           </ul>
         </div>
