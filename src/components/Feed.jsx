@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useUserList } from "../hooks/useUserList";
 import { useNavigate } from "react-router-dom";
+import UserCard from "./UserCard";
 const Feed = () => {
   const dispatch = useDispatch();
   const { getUserList } = useUserList();
@@ -39,7 +40,11 @@ const Feed = () => {
     <div>
       <div>
         {userList?.map((ele) => {
-          return <p key={ele?.id}>{ele.firstName}</p>;
+          return (
+            <div key={ele?.id}>
+              <UserCard userData={ele} />
+            </div>
+          );
         })}
       </div>
     </div>
