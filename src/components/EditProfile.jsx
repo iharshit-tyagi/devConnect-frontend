@@ -39,7 +39,7 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="lastName"
-                value={profile.lastName}
+                value={profile.lastName || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />
@@ -51,7 +51,7 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="email"
-                value={profile.email}
+                value={profile.email || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />
