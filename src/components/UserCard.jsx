@@ -1,5 +1,4 @@
-const UserCard = ({ userData }) => {
-  console.log(userData);
+const UserCard = ({ userData, onConnect, onSkip }) => {
   const {
     firstName,
     lastName,
@@ -10,13 +9,6 @@ const UserCard = ({ userData }) => {
     github_url,
     linkedin_url,
   } = userData;
-  const user = {
-    id: 1,
-    firstName: "Harsh",
-    bio: "Full Stack Developer | React & Node enthusiast | Open Source contributor.",
-    skills: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
-    avatar: "https://i.pravatar.cc/150?img=12",
-  };
 
   return (
     <div className="card bg-base-300 w-96 shadow-sm">
@@ -31,8 +23,12 @@ const UserCard = ({ userData }) => {
         <h2 className="card-title">{firstName}</h2>
         <p>{bio}</p>
         <div className="card-actions">
-          <button className="btn btn-primary">Connect</button>
-          <button className="btn btn-outline">Skip</button>
+          <button onClick={onConnect} className="btn btn-primary">
+            Connect
+          </button>
+          <button onClick={onSkip} className="btn btn-outline">
+            Skip
+          </button>
         </div>
       </div>
     </div>

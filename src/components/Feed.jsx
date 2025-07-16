@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useUserList } from "../hooks/useUserList";
 import { useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
+
 const Feed = () => {
   const dispatch = useDispatch();
   const { getUserList } = useUserList();
@@ -13,10 +13,13 @@ const Feed = () => {
   const userList = useSelector((state) => state.userList);
   const user = useSelector((state) => state.user);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     getUserList();
     getSignedInUser();
   }, []);
+
   const getSignedInUser = async () => {
     try {
       if (user) return;
@@ -24,8 +27,8 @@ const Feed = () => {
         withCredentials: true,
       });
 
-      if (res.status == 200) {
-        dispatch(addUser(res?.data));
+      if (res.status === 200) {
+        dispatch(addUser(res.data));
       } else {
         navigate("/");
       }
@@ -34,19 +37,38 @@ const Feed = () => {
       navigate("/");
     }
   };
-  return !userList ? (
-    <div> No users</div>
-  ) : (
+
+  const handleConnect = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const handleSkip = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  if (!userList || userList.length === 0) return <div>No users</div>;
+
+  const currentUser = userList[currentIndex];
+
+  return (
     <div>
-      <div>
-        {userList?.map((ele) => {
-          return (
-            <div key={ele?.id}>
-              <UserCard userData={ele} />
-            </div>
-          );
-        })}
-      </div>
+      {currentUser ? (
+        <UserCard
+          userData={currentUser}
+          onConnect={handleConnect}
+          onSkip={handleSkip}
+        />
+      ) : (
+        <div className="text-center text-gray-400 mt-10">
+          <p className="text-xl mb-2">No more developers in your feed 🚀</p>
+          <button
+            onClick={() => setCurrentIndex(0)}
+            className="btn btn-primary mt-4"
+          >
+            Restart Feed
+          </button>
+        </div>
+      )}
     </div>
   );
 };
