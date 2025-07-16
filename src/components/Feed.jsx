@@ -53,11 +53,13 @@ const Feed = () => {
   return (
     <div>
       {currentUser ? (
-        <UserCard
-          userData={currentUser}
-          onConnect={handleConnect}
-          onSkip={handleSkip}
-        />
+        <div className="flex justify-center items-center min-h-screen">
+          <UserCard
+            userData={currentUser}
+            onConnect={handleConnect}
+            onSkip={handleSkip}
+          />
+        </div>
       ) : (
         <div className="text-center text-gray-400 mt-10">
           <p className="text-xl mb-2">No more developers in your feed 🚀</p>
