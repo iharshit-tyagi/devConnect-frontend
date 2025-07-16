@@ -1,16 +1,23 @@
 import { useState } from "react";
 import UserCard from "./UserCard";
+import { updateProfile } from "../api/user.jsx";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice.jsx";
 const EditProfile = ({ userData }) => {
   const [profile, setProfile] = useState(userData);
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Profile Updated: ", profile);
+
     // you can trigger your API call here
+    const updatedProfile = await updateProfile(profile);
+    console.log(updatedProfile?.response);
+
+    if (updatedProfile) dispatch(addUser(updatedProfile?.response));
   };
 
   return (
