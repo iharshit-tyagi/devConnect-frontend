@@ -1,8 +1,33 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🖼️ DevConnect — Frontend (WIP)
 
-Currently, two official plugins are available:
+Frontend for DevConnect — a platform for developers to match, connect, and collaborate.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built using **React + TypeScript + Tailwind**. Currently in development.
+
+---
+
+## 🔌 Works With
+
+- Connects to [DevConnect API](https://github.com/iharshit-tyagi/devConnect-backend)
+- Auth, user management, matches, and chats
+
+---
+
+## 🛠️ Features (Coming Soon)
+
+- 🌐 Auth pages (signup, login)
+- 👤 User profile
+- 🔍 Browse developers
+- ❤️ Match & Chat UI
+- 📬 Messaging interface
+
+---
+
+## 🚀 Setup
+
+```bash
+git clone https://github.com/your-username/devconnect-frontend.git
+cd devconnect-frontend
+npm install
+npm run dev
