@@ -8,8 +8,7 @@ const Profile = () => {
 
   return (
     <div>
-      Profile
-      <div className="flex justify-center gap-8">
+      <div className="  ">
         <EditProfile userData={user} />
       </div>
     </div>

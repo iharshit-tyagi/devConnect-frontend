@@ -20,7 +20,10 @@ const UserCard = ({ userData, onConnect, onSkip }) => {
         />
       </figure>
       <div className="card-body items-center text-center">
-        <h2 className="card-title">{firstName}</h2>
+        <h2 className="card-title">
+          {[firstName, lastName].filter(Boolean).join(" ")}
+        </h2>
+
         <p>{bio}</p>
         <div className="card-actions">
           <button onClick={onConnect} className="btn btn-primary">
