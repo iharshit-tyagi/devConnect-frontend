@@ -5,6 +5,7 @@ import { addUser } from "../utils/userSlice";
 import { useUserList } from "../hooks/useUserList";
 import { useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
+import { sendMatchRequest } from "../api/matches";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -38,8 +39,11 @@ const Feed = () => {
     }
   };
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     setCurrentIndex((prev) => prev + 1);
+
+    const sentReq = await sendMatchRequest(currentUser?.id);
+    console.log(sentReq?.data);
   };
 
   const handleSkip = () => {
