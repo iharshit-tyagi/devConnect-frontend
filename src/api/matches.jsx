@@ -16,3 +16,17 @@ export const sendMatchRequest = async (userId) => {
     return null;
   }
 };
+export const getMatchRequests = async () => {
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/api/v1/matches/requests`,
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data; // return only the useful data
+  } catch (err) {
+    console.error("Error Fetching Data", err);
+    return null;
+  }
+};

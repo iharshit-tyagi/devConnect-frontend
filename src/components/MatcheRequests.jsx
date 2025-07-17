@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getMatchRequests } from "../api/matches";
 const MatchRequests = () => {
   const dummyRequests = [
     {
@@ -34,13 +36,23 @@ const MatchRequests = () => {
       linkedin_url: "https://linkedin.com/in/charliedavis",
     },
   ];
+  const [matchRequests, setMatchRequests] = useState(null);
+  useEffect(() => {
+    callGetMatchRequest();
+  }, []);
+  const callGetMatchRequest = async () => {
+    const reqs = await getMatchRequests();
+    console.log(reqs?.data);
+
+    setMatchRequests(reqs?.data);
+  };
   const onAccept = async () => {
     console.log("Accepted");
   };
   const onReject = async () => {
     console.log("Accepted");
   };
-  if (!dummyRequests.length) {
+  if (!matchRequests?.length) {
     return (
       <div className="text-center text-gray-400 mt-10">
         <p className="text-lg">No match requests at the moment 😴</p>
@@ -54,17 +66,19 @@ const MatchRequests = () => {
         Incoming Match Requests
       </h2>
       <div className="space-y-4">
-        {dummyRequests.map((user) => (
+        {matchRequests.map((user) => (
           <div
-            key={user._id}
+            key={user?.id}
             className="bg-base-200 shadow-md p-4 rounded-lg flex items-center justify-between"
           >
             <div>
               <p className="text-white text-lg font-medium">
-                {user.firstName} {user.lastName}
+                {user?.sender?.firstName} {user.lastName}
               </p>
-              <p className="text-gray-400 text-sm">{user.skills?.join(", ")}</p>
-              <p className="text-gray-400 text-sm">{user.bio}</p>
+              <p className="text-gray-400 text-sm">
+                {user?.sender?.skills?.join(", ")}
+              </p>
+              <p className="text-gray-400 text-sm">{user?.sender?.bio}</p>
             </div>
             <div className="flex gap-2">
               <button
