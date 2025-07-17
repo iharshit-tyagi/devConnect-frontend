@@ -1,11 +1,23 @@
 import axios from "axios";
 
 export const updateProfile = async (profile) => {
-  console.log("Updating profile...");
   try {
+    const formattedSkills =
+      typeof profile.skills === "string"
+        ? profile.skills
+            .split(",")
+            .map((skill) => skill.trim())
+            .filter((skill) => skill !== "")
+        : profile.skills;
+
+    // Updated profile object
+    const updatedProfile = {
+      ...profile,
+      skills: formattedSkills,
+    };
     const res = await axios.patch(
       "http://localhost:3000/api/v1/user/update",
-      profile,
+      updatedProfile,
       {
         withCredentials: true,
       }

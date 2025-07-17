@@ -21,9 +21,6 @@ export const UseLogin = () => {
           withCredentials: true,
         }
       );
-      console.log("After axios call");
-
-      console.log(res?.data?.response);
 
       dispatch(addUser(res?.data?.response));
       navigate("/feed");

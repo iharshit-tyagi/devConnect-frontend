@@ -1,23 +1,21 @@
 const UserCard = ({ userData, onConnect, onSkip }) => {
   const {
-    firstName,
-    lastName,
-    email,
-    bio,
-    avatar_url,
-    skills,
-    github_url,
-    linkedin_url,
+    firstName = "",
+    lastName = "",
+    email = "",
+    bio = "",
+    avatar_url = "",
+    skills = [],
+    github_url = "",
+    linkedin_url = "",
   } = userData;
 
   return (
     <div className="card bg-base-300 w-96 shadow-sm">
-      <figure className="px-10 pt-10">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
-          className="rounded-xl"
-        />
+      <figure className="px-7 pt-7">
+        {avatar_url && (
+          <img src={avatar_url} alt="Shoes" className="rounded-xl" />
+        )}
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">

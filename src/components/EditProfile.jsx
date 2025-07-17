@@ -5,23 +5,40 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.jsx";
 const EditProfile = ({ userData }) => {
   const [profile, setProfile] = useState(userData);
+  const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
+  console.log(profile.skills);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // you can trigger your API call here
+    // API call here
     const updatedProfile = await updateProfile(profile);
     console.log(updatedProfile?.response);
 
-    if (updatedProfile) dispatch(addUser(updatedProfile?.response));
+    if (updatedProfile) {
+      dispatch(addUser(updatedProfile?.response));
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
+    }
   };
 
   return (
     <div className="flex justify-center gap-6 p-6">
+      {showNotification && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+          <div className="alert alert-success shadow-lg">
+            <span>User Updated</span>
+          </div>
+        </div>
+      )}
+
       <div className="w-2/6">
         <div className="card bg-base-200 shadow-md w-full p-6 text-white">
           <h2 className="text-2xl font-semibold mb-3">Edit Profile</h2>
@@ -34,7 +51,7 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="firstName"
-                value={profile.firstName}
+                value={profile?.firstName || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />
@@ -46,7 +63,7 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="lastName"
-                value={profile.lastName || ""}
+                value={profile?.lastName || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />
@@ -58,7 +75,19 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="email"
-                value={profile.email || ""}
+                value={profile?.email || ""}
+                onChange={handleChange}
+                className="input input-bordered w-full bg-base-100"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-gray-300">Avatar URL</span>
+              </label>
+              <input
+                type="text"
+                name="avatar_url"
+                value={profile?.avatar_url || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />
@@ -70,7 +99,7 @@ const EditProfile = ({ userData }) => {
               </label>
               <textarea
                 name="bio"
-                value={profile.bio}
+                value={profile?.bio || ""}
                 onChange={handleChange}
                 className="textarea textarea-bordered bg-base-100"
                 rows="2"
@@ -86,7 +115,7 @@ const EditProfile = ({ userData }) => {
               <input
                 type="text"
                 name="skills"
-                value={profile.skills}
+                value={profile?.skills}
                 onChange={handleChange}
                 className="input input-bordered w-full bg-base-100"
               />

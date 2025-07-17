@@ -25,7 +25,9 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Dev Connect</a>
+        <Link className="btn btn-ghost text-xl" to={"/feed"}>
+          Dev Connect
+        </Link>
       </div>
       <div className="flex-none gap-2">
         {user ? <p>Welcome {user?.firstName} </p> : ""}
@@ -37,8 +39,12 @@ const NavBar = () => {
           >
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                alt="Profile Pic"
+                src={
+                  user
+                    ? user?.avatar_url
+                    : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                }
               />
             </div>
           </div>
