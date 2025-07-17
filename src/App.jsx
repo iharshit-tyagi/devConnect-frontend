@@ -4,6 +4,7 @@ import Body from "./components/Body";
 import Signup from "./components/Signup";
 import Feed from "./components/Feed";
 import Profile from "./components/Profile";
+import Matches from "./components/Matches";
 function App() {
   return (
     <div>
@@ -15,6 +16,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/matches" element={<Matches />} />
           </Route>
         </Routes>
       </BrowserRouter>

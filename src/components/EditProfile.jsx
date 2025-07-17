@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { updateProfile } from "../api/user.jsx";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.jsx";
-const EditProfile = ({ userData }) => {
-  const [profile, setProfile] = useState(userData);
+import { useSelector } from "react-redux";
+const EditProfile = () => {
+  const reduxUser = useSelector((state) => state.user);
+  const [profile, setProfile] = useState(reduxUser);
   const [showNotification, setShowNotification] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Sync local state when redux user updates
+    if (reduxUser) {
+      setProfile(reduxUser);
+    }
+  }, [reduxUser]);
+
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
-
-  console.log(profile.skills);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

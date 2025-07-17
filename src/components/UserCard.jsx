@@ -8,7 +8,7 @@ const UserCard = ({ userData, onConnect, onSkip }) => {
     skills = [],
     github_url = "",
     linkedin_url = "",
-  } = userData;
+  } = userData || {};
 
   return (
     <div className="card bg-base-300 w-96 shadow-sm">

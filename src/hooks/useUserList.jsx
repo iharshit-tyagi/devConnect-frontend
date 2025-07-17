@@ -10,7 +10,6 @@ export const useUserList = () => {
         "http://localhost:3000/api/v1/user/userlist",
         { withCredentials: true }
       );
-      console.log(res);
 
       dispatch(addUsers(res?.data?.response));
     } catch (err) {

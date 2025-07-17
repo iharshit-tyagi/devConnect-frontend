@@ -6,38 +6,18 @@ import { useUserList } from "../hooks/useUserList";
 import { useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
 import { sendMatchRequest } from "../api/matches";
+import { useGetSignedInUser } from "../hooks/useGetSignedInUser";
 
 const Feed = () => {
-  const dispatch = useDispatch();
   const { getUserList } = useUserList();
-  const navigate = useNavigate();
   const userList = useSelector((state) => state.userList);
-  const user = useSelector((state) => state.user);
-
+  const { getUser } = useGetSignedInUser();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     getUserList();
-    getSignedInUser();
+    // getUser();
   }, []);
-
-  const getSignedInUser = async () => {
-    try {
-      if (user) return;
-      const res = await axios.get("http://localhost:3000/api/v1/user/view", {
-        withCredentials: true,
-      });
-
-      if (res.status === 200) {
-        dispatch(addUser(res.data));
-      } else {
-        navigate("/");
-      }
-    } catch (err) {
-      console.log(err);
-      navigate("/");
-    }
-  };
 
   const handleConnect = async () => {
     setCurrentIndex((prev) => prev + 1);
