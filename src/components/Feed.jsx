@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { useSelector } from "react-redux";
 import { useUserList } from "../hooks/useUserList";
-import { useNavigate } from "react-router-dom";
 import UserCard from "./UserCard";
 import { sendMatchRequest } from "../api/matches";
-import { useGetSignedInUser } from "../hooks/useGetSignedInUser";
 
 const Feed = () => {
   const { getUserList } = useUserList();
   const userList = useSelector((state) => state.userList);
-  const { getUser } = useGetSignedInUser();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
