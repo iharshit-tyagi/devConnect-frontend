@@ -45,3 +45,18 @@ export const acceptMatchRequest = async (reqId) => {
     return null;
   }
 };
+export const rejectMatchRequest = async (reqId) => {
+  try {
+    const res = await axios.delete(
+      `http://localhost:3000/api/v1/matches/reject/${reqId}`,
+
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data; // return only the useful data
+  } catch (err) {
+    console.error("Error Sending Request", err);
+    return null;
+  }
+};

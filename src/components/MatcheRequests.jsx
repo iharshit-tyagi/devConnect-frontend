@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { getMatchRequests, acceptMatchRequest } from "../api/matches";
+import {
+  getMatchRequests,
+  acceptMatchRequest,
+  rejectMatchRequest,
+} from "../api/matches";
 
 const MatchRequests = () => {
   const [matchRequests, setMatchRequests] = useState(null);
@@ -19,8 +23,9 @@ const MatchRequests = () => {
     console.log("Accepted", res);
   };
 
-  const onReject = async (user) => {
-    console.log("Rejected", user);
+  const onReject = async (reqId) => {
+    const res = await rejectMatchRequest(reqId);
+    console.log("Rejected", res);
   };
 
   if (!matchRequests?.length) {
@@ -68,7 +73,7 @@ const MatchRequests = () => {
                 Accept
               </button>
               <button
-                onClick={() => onReject(user)}
+                onClick={() => onReject(user?.id)}
                 className="btn btn-neutral btn-sm"
               >
                 Reject
