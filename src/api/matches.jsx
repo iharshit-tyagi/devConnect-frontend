@@ -30,3 +30,18 @@ export const getMatchRequests = async () => {
     return null;
   }
 };
+export const acceptMatchRequest = async (reqId) => {
+  try {
+    const res = await axios.patch(
+      `http://localhost:3000/api/v1/matches/accept/${reqId}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data; // return only the useful data
+  } catch (err) {
+    console.error("Error Sending Request", err);
+    return null;
+  }
+};
