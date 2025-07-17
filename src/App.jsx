@@ -4,7 +4,7 @@ import Body from "./components/Body";
 import Signup from "./components/Signup";
 import Feed from "./components/Feed";
 import Profile from "./components/Profile";
-import Matches from "./components/Matches";
+import Matches from "./components/MatcheRequests";
 function App() {
   return (
     <div>
