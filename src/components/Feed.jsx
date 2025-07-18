@@ -11,7 +11,6 @@ const Feed = () => {
 
   useEffect(() => {
     getUserList();
-    // getUser();
   }, []);
 
   const handleConnect = async () => {
