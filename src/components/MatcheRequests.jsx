@@ -5,36 +5,46 @@ import {
   rejectMatchRequest,
 } from "../api/matches";
 import Toast from "./Toast";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addMatch,
+  removeMatchRequest,
+  setMatchRequests,
+} from "../utils/matchesSlice";
 
 const MatchRequests = () => {
-  const [matchRequests, setMatchRequests] = useState(null);
+  const dispatch = useDispatch();
+  const matchRequests = useSelector((state) => state.match.matchRequests);
   const [showNotification, setShowNotification] = useState(null);
 
   useEffect(() => {
-    callGetMatchRequest();
+    fetchMatchRequests();
   }, []);
 
-  const callGetMatchRequest = async () => {
-    const reqs = await getMatchRequests();
-    console.log(reqs?.data);
-    setMatchRequests(reqs?.data);
+  const fetchMatchRequests = async () => {
+    const res = await getMatchRequests();
+    if (res?.data) dispatch(setMatchRequests(res.data));
   };
 
   const onAccept = async (reqId) => {
     const res = await acceptMatchRequest(reqId);
-    console.log("Accepted", res);
-    // Remove the accepted request from the state
-    setMatchRequests((prev) => prev?.filter((req) => req.id !== reqId));
-    setShowNotification("Request Accepted");
-    setTimeout(() => setShowNotification(null), 2000);
+    if (res?.data) {
+      dispatch(addMatch(res.data));
+      dispatch(removeMatchRequest(reqId));
+      showToast("Request Accepted");
+    }
   };
 
   const onReject = async (reqId) => {
     const res = await rejectMatchRequest(reqId);
-    console.log("Rejected", res);
-    // Remove the rejected request from the state
-    setMatchRequests((prev) => prev?.filter((req) => req.id !== reqId));
-    setShowNotification("Request Rejected");
+    if (res?.status === 200) {
+      dispatch(removeMatchRequest(reqId));
+      showToast("Request Rejected");
+    }
+  };
+
+  const showToast = (message) => {
+    setShowNotification(message);
     setTimeout(() => setShowNotification(null), 2000);
   };
 
@@ -65,7 +75,7 @@ const MatchRequests = () => {
             key={matchReq?.id}
             className="bg-base-200 shadow-md p-4 rounded-lg flex items-center justify-between"
           >
-            {/* Avatar and Info Section */}
+            {/* Avatar and Info */}
             <div className="flex items-center gap-4">
               <img
                 src={

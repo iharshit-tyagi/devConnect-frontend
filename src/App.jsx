@@ -4,7 +4,8 @@ import Body from "./components/Body";
 import Signup from "./components/Signup";
 import Feed from "./components/Feed";
 import Profile from "./components/Profile";
-import Matches from "./components/MatcheRequests";
+import MatcheRequests from "./components/MatcheRequests";
+import ChatPage from "./components/ChatPage";
 function App() {
   return (
     <div>
@@ -16,7 +17,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/matches" element={<Matches />} />
+            <Route path="/matchRequests" element={<MatcheRequests />} />
+            <Route path="/chat" element={<ChatPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

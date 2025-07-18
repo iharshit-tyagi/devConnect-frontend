@@ -59,7 +59,10 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <Link to={"/matches"}>Match Requests</Link>
+              <Link to={"/matchRequests"}>Match Requests</Link>
+            </li>
+            <li>
+              <Link to={"/chat"}>Matches</Link>
             </li>
             <li>
               <a onClick={handleLogout}>Logout</a>
