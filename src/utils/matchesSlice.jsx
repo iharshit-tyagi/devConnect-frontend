@@ -10,13 +10,17 @@ const matchSlice = createSlice({
   initialState,
   reducers: {
     setMatches: (state, action) => {
-      state.matches = action.payload;
+      state.matches = action.payload || [];
     },
     setMatchRequests: (state, action) => {
-      state.matchRequests = action.payload;
+      state.matchRequests = action.payload || [];
     },
     addMatch: (state, action) => {
-      state.matches.push(action.payload);
+      // Avoid duplicate matches if needed
+      const exists = state.matches.find((m) => m.id === action.payload.id);
+      if (!exists) {
+        state.matches.push(action.payload);
+      }
     },
     removeMatchRequest: (state, action) => {
       state.matchRequests = state.matchRequests.filter(

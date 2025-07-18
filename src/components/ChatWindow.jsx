@@ -1,4 +1,3 @@
-// ChatWindow.js
 import React, { useEffect, useState } from "react";
 
 export default function ChatWindow({ matchUserId, currentUserId }) {
@@ -43,7 +42,7 @@ export default function ChatWindow({ matchUserId, currentUserId }) {
 
   return (
     <div className="flex flex-col h-full w-3/4">
-      <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4">
         {messages.map((msg) => (
           <div
             key={msg.id}

@@ -1,27 +1,18 @@
-// ChatPage.js
 import { useEffect, useState } from "react";
 import MatchesList from "./MatchesList";
 import ChatWindow from "./ChatWindow";
+import { useSelector } from "react-redux";
+import { useMatchList } from "../hooks/useMatchList";
 
 export default function ChatPage() {
-  const [matches, setMatches] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const currentUserId = "your-user-id"; // Replace with actual logged-in user ID
-
+  const matches = useSelector((state) => state.match.matches);
+  const currentUserId = useSelector((state) => state.user?.id);
+  const { getMatchList } = useMatchList();
   useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const res = await fetch("/api/matches");
-        const data = await res.json();
-        setMatches(data);
-      } catch (err) {
-        console.error("Error fetching matches:", err);
-      }
-    };
-
-    fetchMatches();
+    getMatchList();
   }, []);
-
+  if (!matches) return;
   return (
     <div className="flex h-screen">
       <MatchesList
