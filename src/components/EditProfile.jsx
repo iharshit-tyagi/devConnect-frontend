@@ -4,6 +4,7 @@ import { updateProfile } from "../api/user.jsx";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.jsx";
 import { useSelector } from "react-redux";
+import Toast from "./Toast.jsx";
 const EditProfile = () => {
   const reduxUser = useSelector((state) => state.user);
   const [profile, setProfile] = useState(reduxUser);
@@ -39,13 +40,7 @@ const EditProfile = () => {
 
   return (
     <div className="flex justify-center gap-6 p-6">
-      {showNotification && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="alert alert-success shadow-lg">
-            <span>User Updated</span>
-          </div>
-        </div>
-      )}
+      {showNotification && <Toast message={"User updated"} />}
 
       <div className="w-2/6">
         <div className="card bg-base-200 shadow-md w-full p-6 text-white">
