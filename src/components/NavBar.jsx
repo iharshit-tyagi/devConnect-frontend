@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import { defaultDpUrl } from "../utils/constants";
 const NavBar = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -40,11 +41,7 @@ const NavBar = () => {
             <div className="w-10 rounded-full">
               <img
                 alt="Profile Pic"
-                src={
-                  user
-                    ? user?.avatar_url
-                    : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                }
+                src={user ? user?.avatar_url : defaultDpUrl}
               />
             </div>
           </div>

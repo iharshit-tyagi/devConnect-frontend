@@ -21,6 +21,7 @@ export const UseLogin = () => {
           withCredentials: true,
         }
       );
+      console.log(res?.data?.response);
 
       dispatch(addUser(res?.data?.response));
       navigate("/feed");

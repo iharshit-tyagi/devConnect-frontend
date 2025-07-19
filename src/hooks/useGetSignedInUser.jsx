@@ -19,7 +19,7 @@ export const useGetSignedInUser = () => {
       });
 
       if (res.status === 200) {
-        dispatch(addUser(res.data));
+        dispatch(addUser(res.data?.data));
         // Navigate to /feed ONLY if current path is /
         if (location.pathname === "/") {
           navigate("/feed");

@@ -1,6 +1,11 @@
 import { useSelector } from "react-redux";
-
-export default function MatchesList({ matches, onSelect, selectedUserId }) {
+import { defaultDpUrl } from "../utils/constants";
+export default function MatchesList({
+  matches,
+  onSelect,
+  selectedUserId,
+  setSelectedMatch,
+}) {
   const loggedInUserId = useSelector((state) => state.user?.id);
 
   const getOtherUser = (match) => {
@@ -21,7 +26,10 @@ export default function MatchesList({ matches, onSelect, selectedUserId }) {
           return (
             <div
               key={otherUser?.id}
-              onClick={() => onSelect(otherUser?.id)}
+              onClick={() => {
+                onSelect(otherUser?.id);
+                setSelectedMatch(match);
+              }}
               className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ${
                 isSelected
                   ? "bg-[#1F2937] border border-[#8AB4F8]"
@@ -29,7 +37,7 @@ export default function MatchesList({ matches, onSelect, selectedUserId }) {
               }`}
             >
               <img
-                src={otherUser?.avatar_url || "/default-avatar.png"}
+                src={otherUser?.avatar_url || defaultDpUrl}
                 alt={otherUser?.username}
                 className="w-10 h-10 rounded-full border border-gray-600"
               />
