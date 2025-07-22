@@ -49,8 +49,6 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
       console.error("Error sending message:", err);
     }
   };
-  console.log(messages);
-
   return (
     <div className="flex flex-col h-full w-3/4">
       <div className="flex items-center gap-4 bg-base-200 px-4 py-3 border-b">
@@ -103,7 +101,7 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
           </div>
         ))}
       </div>
-      <div className="border-t p-4 flex gap-2 bg-white">
+      <div className="border-t p-4 flex gap-2 bg-transparent">
         <input
           type="text"
           value={newMessage}

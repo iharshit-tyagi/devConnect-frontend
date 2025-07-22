@@ -7,7 +7,7 @@ import { useMatchList } from "../hooks/useMatchList";
 export default function ChatPage() {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedMatch, setSelectedMatch] = useState(null);
-  const matches = useSelector((state) => state.match.matches);
+  const matches = useSelector((state) => state.match?.matches);
   const currentUserId = useSelector((state) => state.user?.id);
   const { getMatchList } = useMatchList();
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function ChatPage() {
   if (!matches) return;
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-[calc(100vh-65px)] overflow-hidden">
       <MatchesList
         matches={matches}
         onSelect={setSelectedUserId}
