@@ -1,31 +1,38 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 
 export default function ChatWindow({ matchUserId, currentUserId, match }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const pollingRef = useRef(null);
   const getOtherUser = (match) => {
     return match.user1.id === currentUserId ? match.user2 : match.user1;
   };
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const res = await axios.post(
-          "http://localhost:3000/api/v1/message/getMessages",
-          {
-            matchId: match?.id,
-          },
-          { withCredentials: true }
-        );
-        setMessages(res?.data?.data);
-      } catch (err) {
-        console.error("Error fetching messages:", err);
-      }
-    };
+  const fetchMessages = async () => {
+    if (!match?.id) return;
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/message/getMessages",
+        {
+          matchId: match?.id,
+        },
+        { withCredentials: true }
+      );
+      setMessages(res?.data?.data);
+    } catch (err) {
+      console.error("Error fetching messages:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchMessages();
-  }, [match]);
+
+    pollingRef.current = setInterval(fetchMessages, 3000);
+
+    return () => clearInterval(pollingRef.current);
+  }, [match?.id]);
 
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -41,7 +48,7 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
         { withCredentials: true }
       );
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         setMessages((prev) => [...prev, res?.data?.data]);
         setNewMessage("");
       }
@@ -49,6 +56,7 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
       console.error("Error sending message:", err);
     }
   };
+
   return (
     <div className="flex flex-col h-full w-3/4">
       <div className="flex items-center gap-4 bg-base-200 px-4 py-3 border-b">
@@ -69,6 +77,7 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
           </p>
         </div>
       </div>
+
       <div className="flex-1 overflow-y-auto p-4">
         {messages?.map((msg) => (
           <div
@@ -101,6 +110,7 @@ export default function ChatWindow({ matchUserId, currentUserId, match }) {
           </div>
         ))}
       </div>
+
       <div className="border-t p-4 flex gap-2 bg-transparent">
         <input
           type="text"
