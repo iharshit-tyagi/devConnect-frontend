@@ -29,9 +29,9 @@ const Feed = () => {
   const currentUser = userList[currentIndex];
 
   return (
-    <div>
+    <div className="">
       {currentUser ? (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex justify-center items-center min-h-[calc(100vh-5rem)]">
           <UserCard
             userData={currentUser}
             onConnect={handleConnect}

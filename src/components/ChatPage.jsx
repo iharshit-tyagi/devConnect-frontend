@@ -16,7 +16,7 @@ export default function ChatPage() {
   if (!matches) return;
 
   return (
-    <div className="flex h-[calc(100vh-65px)] overflow-hidden">
+    <div className="flex h-[calc(100vh-70px)] overflow-hidden">
       <MatchesList
         matches={matches}
         onSelect={setSelectedUserId}
